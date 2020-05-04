@@ -29,13 +29,21 @@ public class ChatClientCLI {
 
 					try {
 						message = reader.readLine();
-						if (message.isBlank())
+						if (message.isBlank()) {
 							continue;
-
-						if (message.equalsIgnoreCase("exit")) {
+						}
+						else if (message.equalsIgnoreCase("#sendSubmitters")) {
+							client.sendToServer("Aviv, Elor, Natanel");
+						}
+						else if (message.startsWith("#send")) {
+							message = message.substring(6);
+							client.sendToServer(message);
+						}
+						else if (message.equalsIgnoreCase("#exit")) {
 							System.out.println("Closing connection.");
 								client.closeConnection();
-						} else {
+						} 
+						else {
 							client.sendToServer(message);
 						}
 					} catch (IOException e1) {
